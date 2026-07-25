@@ -4,23 +4,16 @@
  * VITE_CHAIN_ID specifies (now Sepolia, not Ganache).
  */
 
+import contractData from "../contracts/VotingSystem.json";
 import {
   createContext, useContext, useState, useEffect, useCallback, useMemo
 } from "react";
 import { ethers } from "ethers";
 import toast from "react-hot-toast";
 
-let contractABI     = [];
-let contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS || "";
-
-try {
-  const data = await import("../contracts/VotingSystem.json");
-  contractABI     = data.abi     || data.default?.abi     || [];
-  contractAddress = data.address || data.default?.address || contractAddress;
-} catch {
-  console.warn("VotingSystem.json not found.");
-}
-
+const contractABI = contractData.abi;
+const contractAddress =
+  import.meta.env.VITE_CONTRACT_ADDRESS || contractData.address;
 const EXPECTED_CHAIN_ID     = parseInt(import.meta.env.VITE_CHAIN_ID || "11155111");
 const EXPECTED_CHAIN_ID_HEX = "0x" + EXPECTED_CHAIN_ID.toString(16);
 
