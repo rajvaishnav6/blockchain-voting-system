@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base Styles ─────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #080c18;
+    color: #e0e8ff;
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #080c18;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1a2540;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00d4ff44;
+  }
+
+  /* Focus ring */
+  :focus-visible {
+    outline: 2px solid #00d4ff;
+    outline-offset: 2px;
+  }
+}
+
+/* ── Component Utilities ─────────────────────────────────────────────────── */
+@layer components {
+  /* Card */
+  .cyber-card {
+    @apply border bg-cyber-card border-cyber-border rounded-xl shadow-cyber backdrop-blur-sm;
+    background-image: linear-gradient(135deg, rgba(0,212,255,0.02) 0%, transparent 60%);
+  }
+
+  .cyber-card-hover {
+    @apply cyber-card transition-all duration-300 hover:border-cyber-cyan/30 hover:shadow-cyber-hover hover:-translate-y-0.5;
+  }
+
+  /* Input */
+  .cyber-input {
+    @apply w-full px-4 py-3 text-sm transition-colors duration-200 border rounded-lg bg-cyber-bg border-cyber-border text-cyber-text placeholder-cyber-muted font-body focus:outline-none focus:border-cyber-cyan/60 focus:ring-1 focus:ring-cyber-cyan/30;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold transition-all duration-200 rounded-lg font-heading bg-cyber-cyan text-cyber-bg hover:bg-white active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-glow-cyan hover:shadow-none;
+  }
+
+  /* Ghost button */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold transition-all duration-200 border rounded-lg font-heading border-cyber-border text-cyber-text hover:border-cyber-cyan/40 hover:text-cyber-cyan active:scale-95;
+  }
+
+  /* Danger button */
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold transition-all duration-200 border rounded-lg font-heading bg-cyber-red/10 border-cyber-red/30 text-cyber-red hover:bg-cyber-red/20 hover:border-cyber-red/60 active:scale-95;
+  }
+
+  /* Label */
+  .cyber-label {
+    @apply block text-cyber-muted text-xs font-heading font-medium uppercase tracking-widest mb-1.5;
+  }
+
+  /* Section header */
+  .section-title {
+    @apply text-2xl font-bold font-heading text-cyber-text;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-heading font-medium;
+  }
+  .badge-green  { @apply border badge bg-cyber-green/10 text-cyber-green border-cyber-green/20; }
+  .badge-red    { @apply border badge bg-cyber-red/10 text-cyber-red border-cyber-red/20; }
+  .badge-cyan   { @apply border badge bg-cyber-cyan/10 text-cyber-cyan border-cyber-cyan/20; }
+  .badge-yellow { @apply border badge bg-cyber-yellow/10 text-cyber-yellow border-cyber-yellow/20; }
+  .badge-muted  { @apply badge bg-cyber-border text-cyber-muted; }
+
+  /* Monospace address / hash display */
+  .hash-display {
+    @apply px-2 py-1 font-mono text-xs break-all border rounded select-all text-cyber-muted bg-cyber-bg border-cyber-border;
+  }
+
+  /* Full-page layout */
+  .page-container {
+    @apply min-h-screen px-4 pt-20 pb-12;
+  }
+
+  .content-wrapper {
+    @apply max-w-6xl mx-auto;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply text-transparent bg-gradient-to-r from-cyber-cyan via-white to-cyber-cyan bg-clip-text;
+  }
+
+  /* Stat box */
+  .stat-card {
+    @apply flex flex-col gap-1 p-5 cyber-card;
+  }
+
+  /* Grid background */
+  .grid-bg {
+    background-image: linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
+/* ── Utility Extras ───────────────────────────────────────────────────────── */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+}

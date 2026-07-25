@@ -1,0 +1,16 @@
+{
+  "name": "blockchain-voting-contracts",
+  "version": "1.0.0",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy":  "hardhat run scripts/deploy.js --network ganache",
+    "clean":   "hardhat clean"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "3.0.0",
+    "hardhat": "2.22.16"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
