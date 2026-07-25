@@ -1,5 +1,5 @@
 {
-  "address": "0xcAf4A134D2fe83EE139bA177c9d7792023F38C22",
+  "address": "0x5f084187Ddf5D5603b16e03A98078D960F39c72f",
   "abi": [
     {
       "inputs": [],
@@ -541,5 +541,5 @@
       "type": "function"
     }
   ],
-  "network": "ganache"
+  "network": "sepolia"
 }
