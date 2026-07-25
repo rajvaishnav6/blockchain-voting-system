@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import contractABI from "./Voting.json";
 
 const contractAddress =
-  "YOUR_CONTRACT_ADDRESS";
+  import.meta.env.VITE_CONTRACT_ADDRESS;
 
 export const connectWallet = async () => {
 
