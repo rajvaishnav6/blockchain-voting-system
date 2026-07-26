@@ -8,7 +8,9 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 const api = axios.create({
   baseURL: API_URL,
-  timeout: 15000,
+  timeout: 60000, // 60 sec — Render free tier "sleep" se jaagne mein
+                  // 30-60 sec lag sakta hai, isliye purana 15s bahut
+                  // kam tha!
   headers: { "Content-Type": "application/json" },
 });
 
@@ -29,10 +31,6 @@ api.interceptors.response.use(
     const requestUrl    = error.config?.url || "";
     const isAuthAttempt = requestUrl.includes("/login") || requestUrl.includes("/register");
 
-    // Sirf tab hard-redirect karo jab ek PROTECTED route (jaise /vote,
-    // /profile) ka token expire/invalid ho. Login/Register form ki
-    // apni galti (wrong password) pe redirect NAHI karna — usko sirf
-    // normal error dikhana hai, wahi zyada sahi UX hai.
     if (error.response?.status === 401 && !isAuthAttempt) {
       localStorage.removeItem("chainvote_token");
       localStorage.removeItem("chainvote_user");
@@ -52,16 +50,21 @@ export const authAPI = {
 
 export const voteAPI = {
   getCandidates: ()      => api.get("/getCandidates"),
-  vote:          (data)  => api.post("/vote", data),
+  // Vote karne mein backend ko Sepolia transaction bhi verify
+  // karni padti hai — isliye extra time diya (90 sec)
+  vote:          (data)  => api.post("/vote", data, { timeout: 90000 }),
   getResults:    ()      => api.get("/getResults"),
   getTransaction: (hash) => api.get(`/transaction/${hash}`),
 };
 
 export const adminAPI = {
-  addCandidate:   (data)  => api.post("/admin/addCandidate", data),
-  startElection:  ()      => api.post("/admin/startElection"),
-  endElection:    ()      => api.post("/admin/endElection"),
-  resetElection:  ()      => api.post("/admin/resetElection"),
+  // Yeh sab endpoints Sepolia pe ACTUAL blockchain transaction
+  // bhejte hain aur uske confirm hone tak wait karte hain
+  // (tx.wait()) — isliye 90 sec ka lamba timeout diya
+  addCandidate:   (data)  => api.post("/admin/addCandidate", data, { timeout: 90000 }),
+  startElection:  ()      => api.post("/admin/startElection", null, { timeout: 90000 }),
+  endElection:    ()      => api.post("/admin/endElection", null, { timeout: 90000 }),
+  resetElection:  ()      => api.post("/admin/resetElection", null, { timeout: 90000 }),
   getStats:       ()      => api.get("/admin/stats"),
   getVoters:      ()      => api.get("/admin/voters"),
   removeCandidate:(id)    => api.delete(`/admin/candidate/${id}`),
