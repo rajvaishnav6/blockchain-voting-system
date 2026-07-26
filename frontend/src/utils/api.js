@@ -26,7 +26,14 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response.data,
   (error) => {
-    if (error.response?.status === 401) {
+    const requestUrl    = error.config?.url || "";
+    const isAuthAttempt = requestUrl.includes("/login") || requestUrl.includes("/register");
+
+    // Sirf tab hard-redirect karo jab ek PROTECTED route (jaise /vote,
+    // /profile) ka token expire/invalid ho. Login/Register form ki
+    // apni galti (wrong password) pe redirect NAHI karna — usko sirf
+    // normal error dikhana hai, wahi zyada sahi UX hai.
+    if (error.response?.status === 401 && !isAuthAttempt) {
       localStorage.removeItem("chainvote_token");
       localStorage.removeItem("chainvote_user");
       window.location.href = "/login";
