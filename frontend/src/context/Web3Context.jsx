@@ -4,15 +4,12 @@
  * VITE_CHAIN_ID specifies (now Sepolia, not Ganache).
  */
 
+import contractJson from "../contracts/VotingSystem.json";
 import {
   createContext, useContext, useState, useEffect, useCallback, useMemo
 } from "react";
 import { ethers } from "ethers";
 import toast from "react-hot-toast";
-import contractJson from "../contracts/VotingSystem.json";
-
-const contractABI     = contractJson?.abi || [];
-const contractAddress = contractJson?.address || import.meta.env.VITE_CONTRACT_ADDRESS || "";
 
 const contractABI     = contractJson?.abi || [];
 const contractAddress = contractJson?.address || import.meta.env.VITE_CONTRACT_ADDRESS || "";
